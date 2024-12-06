@@ -8,22 +8,36 @@ import java.util.Collections;
 // then press Enter. You can now see whitespace characters in your code.
 public class Main {
     public static void main(String[] args) {
-        ArrayList<Student> students = new ArrayList<Student>();
+        ArrayList<Student> students = new ArrayList<>();
         ArrayListAddStudent st = new ArrayListAddStudent();
-        System.out.println("****** Add Student ********");
-        st.addStudent(students, new Student("BH001","Nguyen Thanh Trieu", 8.0));
 
-        st.addStudent(students, new Student("BH002","Nguyen Thanh Toan", 7.5));
+        try {
+            System.out.println("****** Add Student ********");
+            st.addStudent(students, new Student("BH001", "Nguyen Thanh Trieu", 8.0));
+            st.addStudent(students, new Student("BH002", "Nguyen Thanh Toan", 7.5));
+            st.addStudent(students, new Student("BH003", "Nguyen Thanh Toan", 1.0)); // Invalid mark
 
-        st.addStudent(students, new Student("BH003","Nguyen Thanh Toan", 6.0));
-        System.out.println("********* List data of students **********");
-        for (Student s : students){
-            System.out.println("ID = " + s.id +" , fullName = " + s.fullName + " , mark = " + s.mark + " , rank = " + s.rank);
+            System.out.println("********* List data of students **********");
+            for (Student s : students) {
+                System.out.println("ID = " + s.id + " , fullName = " + s.fullName + " , mark = " + s.mark + " , rank = " + s.rank);
+            }
+        } catch (IllegalArgumentException e) {
+            System.err.println("Error: " + e.getMessage());
+        } catch (Exception e) {
+            System.err.println("An unexpected error occurred: " + e.getMessage());
         }
 
         System.out.println("********************** Edit Student ****************************");
         ArrayListEditStudent edit = new ArrayListEditStudent();
-        edit.editStudent(students, 1, new Student("BH009", "Teo", 4));
+        try {
+            edit.editStudent(students, 1, new Student("BH009", "Teo", 4));
+        } catch (IndexOutOfBoundsException e) {
+            System.err.println("Error: " + e.getMessage());
+        } catch (IllegalArgumentException e) {
+            System.err.println("Validation Error: " + e.getMessage());
+        } catch (Exception e) {
+            System.err.println("Unexpected Error: " + e.getMessage());
+        }
         System.out.println("********* List data of students after updated **********");
         for (Student s : students){
             System.out.println("ID = " + s.id +" , fullName = " + s.fullName + " , mark = " + s.mark + " , rank = " + s.rank);
